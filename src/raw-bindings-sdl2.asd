@@ -35,6 +35,7 @@
      (:file "log")
      (:file "main")
      (:file "pixels")
+     (:file "power")
      (:file "rect")
      (:file "rwops")
      (:file "scancode")
