@@ -10,22 +10,6 @@
 
 (in-package #:raw-bindings-sdl2)
 
-(defsdl2enum sdl-syswm-type
-  +sdl-syswm-unknown+
-  +sdl-syswm-windows+
-  +sdl-syswm-x11+
-  +sdl-syswm-directfb+
-  +sdl-syswm-cocoa+
-  +sdl-syswm-uikit+
-  +sdl-syswm-wayland+
-  +sdl-syswm-mir+
-  +sdl-syswm-winrt+
-  +sdl-syswm-android+
-  +sdl-syswm-vivante+
-  +sdl-syswm-os2+)
-
-(defsdl2struct sdl-syswm-info)
-
-(defsdl2fun ("SDL_GetWindowWMInfo" sdl-get-window-wm-info) sdl-bool
-  (window (:pointer sdl-window))
-  (info (:pointer sdl-syswm-info)))
+(defsdl2-lispfun sdl-quit-requested ()
+  (sdl-pump-events)
+  (sdl-peep-events (cffi:null-pointer) 0 +sdl-peekevent+ +sdl-quit+ +sdl-quit+))

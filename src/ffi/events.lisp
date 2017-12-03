@@ -10,6 +10,9 @@
 
 (in-package #:raw-bindings-sdl2)
 
+(defsdl2constant +sdl-released+ 0)
+(defsdl2constant +sdl-pressed+ 1)
+
 (defsdl2enum sdl-event-type
   (+sdl-firstevent+ 0)
 
@@ -323,52 +326,12 @@
   (drop sdl-drop-event)
   (padding :uint8 :count 56))
 
+(defsdl2fun ("SDL_PumpEvents" sdl-pump-events) :void)
+
 (defsdl2enum sdl-eventaction
   +sdl-addevent+
   +sdl-peekevent+
   +sdl-getevent+)
-
-(defsdl2constant +sdl-query+ -1)
-(defsdl2constant +sdl-ignore+ 0)
-(defsdl2constant +sdl-disable+ 0)
-(defsdl2constant +sdl-enable+ 1)
-
-(defsdl2fun ("SDL_AddEventWatch" sdl-add-event-watch) :void
-  (filter :pointer)
-  (userdata :pointer))
-
-(defsdl2fun ("SDL_DelEventWatch" sdl-del-event-watch) :void
-  (filter :pointer)
-  (userdata :pointer))
-
-(defsdl2fun ("SDL_EventState" sdl-event-state) :uint8
-  (type :uint32)
-  (state :int))
-
-(defsdl2fun ("SDL_FilterEvents" sdl-filter-events) :void
-  (filter :pointer)
-  (userdata :pointer))
-
-(defsdl2fun ("SDL_FlushEvent" sdl-flush-event) :void
-  (type :uint32))
-
-(defsdl2fun ("SDL_FlushEvents" sdl-flush-events) :void
-  (mintype :uint32)
-  (maxtype :uint32))
-
-(defsdl2fun ("SDL_GetEventFilter" sdl-get-event-filter) sdl-bool
-  (filter (:pointer :pointer))
-  (userdata (:pointer :pointer)))
-
-(defsdl2-lispfun sdl-get-event-state (type)
-  (sdl-event-state type +sdl-query+))
-
-(defsdl2fun ("SDL_HasEvent" sdl-has-event) sdl-bool
-  (type :uint32))
-
-(defsdl2fun ("SDL_HasEvents" sdl-has-events) sdl-bool
-  (mintype :uint32)
-  (maxtype :uint32))
 
 (defsdl2fun ("SDL_PeepEvents" sdl-peep-events) :int
   (events (:pointer sdl-event))
@@ -376,29 +339,65 @@
   (action sdl-eventaction)
   (mintype :uint32)
   (maxtype :uint32))
+(defsdl2fun ("SDL_HasEvent" sdl-has-event) sdl-bool
+  (type :uint32))
+
+(defsdl2fun ("SDL_HasEvents" sdl-has-events) sdl-bool
+  (mintype :uint32)
+  (maxtype :uint32))
+(defsdl2fun ("SDL_FlushEvent" sdl-flush-event) :void
+  (type :uint32))
+
+(defsdl2fun ("SDL_FlushEvents" sdl-flush-events) :void
+  (mintype :uint32)
+  (maxtype :uint32))
 
 (defsdl2fun ("SDL_PollEvent" sdl-poll-event) :int
   (event (:pointer sdl-event)))
-
-(defsdl2fun ("SDL_PumpEvents" sdl-pump-events) :void)
-
-(defsdl2fun ("SDL_PushEvent" sdl-push-event) :int
-  (event (:pointer sdl-event)))
-
-(defsdl2-lispfun sdl-quit-requested ()
-  (sdl-pump-events)
-  (sdl-peep-events (null-pointer) 0 +sdl-peekevent+ +sdl-quit+ +sdl-quit+))
-
-(defsdl2fun ("SDL_RegisterEvents" sdl-register-events) :uint32
-  (num-events :int))
-
-(defsdl2fun ("SDL_SetEventFilter" sdl-set-event-filter) :void
-  (filter :pointer)
-  (userdata :pointer))
-
 (defsdl2fun ("SDL_WaitEvent" sdl-wait-event) :int
   (event (:pointer sdl-event)))
 
 (defsdl2fun ("SDL_WaitEventTimeout" sdl-wait-event-timeout) :int
   (event (:pointer sdl-event))
   (timeout :int))
+
+(defsdl2fun ("SDL_PushEvent" sdl-push-event) :int
+  (event (:pointer sdl-event)))
+
+(defsdl2type sdl-event-filter :pointer)
+
+(defsdl2fun ("SDL_SetEventFilter" sdl-set-event-filter) :void
+  (filter sdl-event-filter)
+  (userdata :pointer))
+
+(defsdl2fun ("SDL_GetEventFilter" sdl-get-event-filter) sdl-bool
+  (filter (:pointer sdl-event-filter))
+  (userdata (:pointer :pointer)))
+
+(defsdl2fun ("SDL_AddEventWatch" sdl-add-event-watch) :void
+  (filter sdl-event-filter)
+  (userdata :pointer))
+
+(defsdl2fun ("SDL_DelEventWatch" sdl-del-event-watch) :void
+  (filter sdl-event-filter)
+  (userdata :pointer))
+
+(defsdl2fun ("SDL_FilterEvents" sdl-filter-events) :void
+  (filter sdl-event-filter)
+  (userdata :pointer))
+
+(defsdl2constant +sdl-query+ -1)
+(defsdl2constant +sdl-ignore+ 0)
+(defsdl2constant +sdl-disable+ 0)
+(defsdl2constant +sdl-enable+ 1)
+
+(defsdl2fun ("SDL_EventState" sdl-event-state) :uint8
+  (type :uint32)
+  (state :int))
+
+(defsdl2-lispfun sdl-get-event-state (type)
+  (sdl-event-state type +sdl-query+))
+
+(defsdl2fun ("SDL_RegisterEvents" sdl-register-events) :uint32
+  (num-events :int))
+

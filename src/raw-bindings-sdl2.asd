@@ -38,7 +38,6 @@
      (:file "rect")
      (:file "rwops")
      (:file "scancode")
-     (:file "syswm")
      (:file "timer")
      (:file "touch")
      (:file "version")
@@ -57,8 +56,11 @@
      (:file "keyboard")
      (:file "render")
      (:file "shape")
+     (:file "syswm")
 
      (:file "events")
+
+     (:file "quit")
 
      (:file "sdl"))))
   :depends-on
