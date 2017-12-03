@@ -31,13 +31,12 @@
   +shape-mode-reverse-binarize-alpha+
   +shape-mode-color-key+)
 
-(eval-when (:compile-toplevel :load-toplevel :execute)
-  (defsdl2-lispfun sdl-shapemodealpha (mode)
-    (if (or (= mode +shape-mode-default+)
-            (= mode +shape-mode-binarize-alpha+)
-            (= mode +shape-mode-reverse-binarize-alpha+))
-        1
-        0)))
+(defsdl2-lispfun sdl-shapemodealpha (mode)
+  (if (or (= mode +shape-mode-default+)
+          (= mode +shape-mode-binarize-alpha+)
+          (= mode +shape-mode-reverse-binarize-alpha+))
+      1
+      0))
 
 (defsdl2union sdl-window-shape-params
   (binarization-cutoff :uint8)

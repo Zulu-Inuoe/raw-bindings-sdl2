@@ -12,18 +12,20 @@
 
 (defmacro defsdl2constant (name value &optional doc)
   "Wrapper around `defconstant' which exports the constant."
-  `(progn
+  `(eval-when (:compile-toplevel :load-toplevel :execute)
      (eval-when (:compile-toplevel :load-toplevel :execute)
        (defparameter ,name ,value ,doc))
      (export ',name)))
 
 (defmacro defsdl2enum (name &body enum-list)
   "Wrapper around `defcenum' which exports the enum type and each enum name within."
-  `(progn
+  `(eval-when (:compile-toplevel :load-toplevel :execute)
      (cffi:defcenum ,name
        ,@enum-list)
+
      ;;Export enum name
      (export ',name)
+
      ;;Export each enum value
      (export
       ',(mapcar
@@ -39,16 +41,18 @@
      ',name))
 
 (defmacro defsdl2type (name base-type &optional documentation)
-  `(progn
+  `(eval-when (:compile-toplevel :load-toplevel :execute)
      (cffi:defctype ,name ,base-type ,documentation)
+
      ;;Export name
      (export ',name)
+
      ;;Return name of type
      ',name))
 
 (defmacro defsdl2struct (name &body fields)
   "Wrapper around `defcstruct' which also defines a type for the struct, and exports all of its fields."
-  `(progn
+  `(eval-when (:compile-toplevel :load-toplevel :execute)
      (cffi:defcstruct ,name
        ,@fields)
      ;;typedef it
@@ -59,11 +63,13 @@
 
      ;;Export each field
      (export ',(mapcar #'car (if (typep (car fields) 'string) (cdr fields) fields)))
+
+     ;;Return name of struct
      ',name))
 
 (defmacro defsdl2union (name &body fields)
   "Wrapper around `defcunion' which exports the union and all of its fields."
-  `(progn
+  `(eval-when (:compile-toplevel :load-toplevel :execute)
      (cffi:defcunion ,name
        ,@fields)
      ;;typedef it
@@ -72,7 +78,7 @@
      ;;Export name
      (export ',name)
 
-     ;Export each member
+     ;;Export each member
      (export ',(mapcar #'car (if (typep (car fields) 'string) (cdr fields) fields)))
 
      ;;Return name of union
@@ -83,27 +89,27 @@
   (assert (typep c-name 'string))
   (assert (and (symbolp lisp-name)
                (not (keywordp lisp-name))))
-  `(progn
-    (cffi:defcfun (,c-name ,lisp-name :library libsdl2 :convention :stdcall) ,return-type
-      ,@args)
+  `(eval-when (:compile-toplevel :load-toplevel :execute)
+     (cffi:defcfun (,c-name ,lisp-name :library libsdl2 :convention :stdcall) ,return-type
+       ,@args)
 
-    ;;Export the lisp name of the function
-    (export ',lisp-name)
+     ;;Export the lisp name of the function
+     (export ',lisp-name)
 
-    ;;Return the lisp-name
-    ',lisp-name))
+     ;;Return the lisp-name
+     ',lisp-name))
 
 (defmacro defsdl2-lispfun (name lambda-list &body body)
   "Wrapper around `defun' which additionally exports the function name.
 Meant to be used around sdl2 C preprocessor macros which have to be implemented as lisp functions."
   (assert (and (symbolp name)
                (not (keywordp name))))
-  `(progn
+  `(eval-when (:compile-toplevel :load-toplevel :execute)
      (defun ,name ,lambda-list
        ,@body)
 
      ;;Export it
      (export ',name)
 
-     ;;Return the name
+       ;;Return the name
      ',name))

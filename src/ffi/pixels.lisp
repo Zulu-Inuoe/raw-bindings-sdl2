@@ -55,17 +55,17 @@
 (defsdl2constant +sdl-packedlayout-2101010+ 7)
 (defsdl2constant +sdl-packedlayout-1010102+ 8)
 
-(eval-when (:compile-toplevel :load-toplevel :execute)
-  (defsdl2-lispfun sdl-define-pixelformat (type order layout bits bytes)
-    (logior
-     (ash 1 28)
-     (ash type 24)
-     (ash order 20)
-     (ash layout 16)
-     (ash bits 8)
-     (ash bytes 0)))
-  (defsdl2-lispfun sdl-define-pixelfourcc (a b c d)
-    (sdl-fourcc a b c d)))
+(defsdl2-lispfun sdl-define-pixelformat (type order layout bits bytes)
+  (logior
+   (ash 1 28)
+   (ash type 24)
+   (ash order 20)
+   (ash layout 16)
+   (ash bits 8)
+   (ash bytes 0)))
+
+(defsdl2-lispfun sdl-define-pixelfourcc (a b c d)
+  (sdl-fourcc a b c d))
 
 (defsdl2constant +sdl-pixelformat-unknown+ 0)
 (defsdl2constant +sdl-pixelformat-index1lsb+

@@ -10,13 +10,12 @@
 
 (in-package #:raw-bindings-sdl2)
 
-(eval-when (:compile-toplevel :load-toplevel :execute)
-  (defsdl2-lispfun sdl-fourcc (a b c d)
-    (logior
-     (ash a 0)
-     (ash b 8)
-     (ash c 16)
-     (ash d 24))))
+(defsdl2-lispfun sdl-fourcc (a b c d)
+  (logior
+   (ash a 0)
+   (ash b 8)
+   (ash c 16)
+   (ash d 24)))
 
 (defsdl2enum sdl-bool
   (+sdl-true+ 0)

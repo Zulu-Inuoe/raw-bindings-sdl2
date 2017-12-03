@@ -28,9 +28,8 @@
   +sdl-mousewheel-normal+
   +sdl-mousewheel-flipped+)
 
-(eval-when (:compile-toplevel :load-toplevel :execute)
-  (defsdl2-lispfun sdl-button (x)
-    (ash 1 (1- x))))
+(defsdl2-lispfun sdl-button (x)
+  (ash 1 (1- x)))
 
 (defsdl2constant +sdl-button-left+ 1)
 (defsdl2constant +sdl-button-middle+ 2)

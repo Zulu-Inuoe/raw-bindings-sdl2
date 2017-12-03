@@ -10,9 +10,8 @@
 
 (in-package #:raw-bindings-sdl2)
 
-(eval-when (:compile-toplevel :load-toplevel :execute)
-  (defsdl2-lispfun sdl-scancode-to-keycode (x)
-    (logior x (ash 1 30))))
+(defsdl2-lispfun sdl-scancode-to-keycode (x)
+  (logior x (ash 1 30)))
 
 (defsdl2enum sdl-keycode
   (+sdlk-unknown+ 0)

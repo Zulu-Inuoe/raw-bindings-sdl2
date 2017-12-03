@@ -17,27 +17,26 @@
 (defsdl2constant +sdl-audio-mask-endian+   (logior 1 12))
 (defsdl2constant +sdl-audio-mask-signed+   (logior 1 15))
 
-(eval-when (:compile-toplevel :load-toplevel :execute)
-  (defsdl2-lispfun sdl-audio-bitsize (x)
-    (logand x +sdl-audio-mask-bitsize+))
+(defsdl2-lispfun sdl-audio-bitsize (x)
+  (logand x +sdl-audio-mask-bitsize+))
 
-  (defsdl2-lispfun sdl-audio-isfloat (x)
-    (logand x +sdl-audio-mask-datatype+))
+(defsdl2-lispfun sdl-audio-isfloat (x)
+  (logand x +sdl-audio-mask-datatype+))
 
-  (defsdl2-lispfun sdl-audio-isbigendian (x)
-    (logand x +sdl-audio-mask-endian+))
+(defsdl2-lispfun sdl-audio-isbigendian (x)
+  (logand x +sdl-audio-mask-endian+))
 
-  (defsdl2-lispfun sdl-audio-issigned (x)
-    (logand x +sdl-audio-mask-signed+))
+(defsdl2-lispfun sdl-audio-issigned (x)
+  (logand x +sdl-audio-mask-signed+))
 
-  (defsdl2-lispfun sdl-audio-isint (x)
-    (if (sdl-audio-isfloat x) 0 1))
+(defsdl2-lispfun sdl-audio-isint (x)
+  (if (sdl-audio-isfloat x) 0 1))
 
-  (defsdl2-lispfun sdl-audio-islittleendian (x)
-    (if (sdl-audio-isbigendian x) 0 1))
+(defsdl2-lispfun sdl-audio-islittleendian (x)
+  (if (sdl-audio-isbigendian x) 0 1))
 
-  (defsdl2-lispfun sdl-audio-isunsigned (x)
-    (if (sdl-audio-issigned x) 0 1)))
+(defsdl2-lispfun sdl-audio-isunsigned (x)
+  (if (sdl-audio-issigned x) 0 1))
 
 (defsdl2constant +audio-u8+        #x0008)
 (defsdl2constant +audio-s8+        #x8008)
