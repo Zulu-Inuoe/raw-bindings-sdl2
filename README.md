@@ -6,14 +6,19 @@ Low level (raw) Common Lisp bindings to the [SDL2](https://www.libsdl.org/) libr
 
 ## Dependencies
 
+Lisp:
+
 * [cffi](https://common-lisp.net/project/cffi/)
 * [defpackage-plus](https://github.com/rpav/defpackage-plus)
 * [libffi](https://sourceware.org/libffi/) runtime library (optional, see below)
+
+Runtime:
+
 * [SDL2](https://www.libsdl.org/) version 2.0.6 runtime libraries
 
 Certain, relatively obscure SDL2 functions require foreign-structures-by-value. This is provided by the cffi-libffi system, which in term depends on the libffi native runtime library.
 
-If cffi-libffi is loaded at read-time, these functions will be available, otherwise they will not be defined.
+If cffi-libffi is available when loading, these functions will be available, otherwise they will not be defined.
 
 These functions are enumerated here:
 
