@@ -269,3 +269,8 @@
   (+kmod-caps+ #x2000)
   (+kmod-mode+ #x4000)
   (+kmod-reserved+ #x8000))
+
+(defsdl2constant +kmod-ctrl+ (logior +kmod-lctrl+ +kmod-rctrl+))
+(defsdl2constant +kmod-shift+ (logior +kmod-lshift+ +kmod-rshift+))
+(defsdl2constant +kmod-alt+ (logior +kmod-lalt+ +kmod-ralt+))
+(defsdl2constant +kmod-gui+ (logior +kmod-lgui+ +kmod-rgui+))

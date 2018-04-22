@@ -71,7 +71,7 @@
   (renderer (:pointer sdl-renderer))
   (info (:pointer sdl-renderer-info)))
 
-(defsdl2fun ("SDL_GetRendererOutputSize" sdl-getrenderer-output-size) :int
+(defsdl2fun ("SDL_GetRendererOutputSize" sdl-get-renderer-output-size) :int
   (renderer (:pointer sdl-renderer))
   (w :int)
   (h :int))
