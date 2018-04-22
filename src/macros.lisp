@@ -10,6 +10,24 @@
 
 (in-package #:raw-bindings-sdl2)
 
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (defun gen-defconstants-from-enum (enum-list)
+    (let ((latest-value 0))
+      (mapcar
+       (lambda (spec)
+         (let ((name (if (atom spec)
+                         spec
+                         (car spec)))
+               (value (if (atom spec)
+                          (1+ latest-value)
+                          (cadr spec))))
+           (setf latest-value value)
+           `(defconstant ,name ,value)))
+       ;;Skip docstring if present
+       (if (typep (car enum-list) 'string)
+           (cdr enum-list)
+           enum-list)))))
+
 (defmacro defsdl2constant (name value &optional doc)
   "Wrapper around `defconstant' which exports the constant."
   `(eval-when (:compile-toplevel :load-toplevel :execute)
@@ -20,8 +38,8 @@
 (defmacro defsdl2enum (name &body enum-list)
   "Wrapper around `defcenum' which exports the enum type and each enum name within."
   `(eval-when (:compile-toplevel :load-toplevel :execute)
-     (cffi:defcenum ,name
-       ,@enum-list)
+     (cffi:defctype ,name :int)
+     ,@(gen-defconstants-from-enum enum-list)
 
      ;;Export enum name
      (export ',name)
