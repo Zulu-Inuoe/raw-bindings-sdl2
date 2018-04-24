@@ -291,7 +291,15 @@
   (data1 :pointer)
   (data2 :pointer))
 
-(defsdl2struct sdl-syswm-msg)
+(defsdl2struct sdl-syswm-msg
+  (version sdl-version)
+  (subsystem sdl-syswm-type)
+  (dummy :int)
+  #+os-windows
+  (win.hwnd win32:hwnd)
+  (win.msg win32:uint)
+  (win.wparam win32:wparam)
+  (win.lparam win32:lparam))
 
 (defsdl2struct sdl-syswm-event
   (type :uint32)
@@ -400,4 +408,3 @@
 
 (defsdl2fun ("SDL_RegisterEvents" sdl-register-events) :uint32
   (num-events :int))
-

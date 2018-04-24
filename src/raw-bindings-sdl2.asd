@@ -67,4 +67,5 @@
   :depends-on
   (#:cffi
    #:defpackage-plus
-   #:trivial-features))
+   #+os-windows
+   #:win32))
