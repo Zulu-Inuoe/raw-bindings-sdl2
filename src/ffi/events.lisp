@@ -296,8 +296,11 @@
   (subsystem sdl-syswm-type)
   #+os-windows
   (win.hwnd win32:hwnd)
+  #+os-windows
   (win.msg win32:uint)
+  #+os-windows
   (win.wparam win32:wparam)
+  #+os-windows
   (win.lparam win32:lparam))
 
 (defsdl2struct sdl-syswm-event
