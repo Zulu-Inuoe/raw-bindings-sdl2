@@ -12,16 +12,16 @@
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defun gen-defconstants-from-enum (enum-list)
-    (let ((latest-value 0))
+    (let ((next-value 0))
       (mapcar
        (lambda (spec)
          (let ((name (if (atom spec)
                          spec
                          (car spec)))
                (value (if (atom spec)
-                          (1+ latest-value)
+                          next-value
                           (cadr spec))))
-           (setf latest-value value)
+           (setf next-value (1+ value))
            `(defconstant ,name ,value)))
        ;;Skip docstring if present
        (if (typep (car enum-list) 'string)
