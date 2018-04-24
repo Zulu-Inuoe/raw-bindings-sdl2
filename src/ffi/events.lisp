@@ -294,7 +294,6 @@
 (defsdl2struct sdl-syswm-msg
   (version sdl-version)
   (subsystem sdl-syswm-type)
-  (dummy :int)
   #+os-windows
   (win.hwnd win32:hwnd)
   (win.msg win32:uint)
