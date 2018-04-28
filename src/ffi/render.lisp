@@ -73,8 +73,8 @@
 
 (defsdl2fun ("SDL_GetRendererOutputSize" sdl-get-renderer-output-size) :int
   (renderer (:pointer sdl-renderer))
-  (w :int)
-  (h :int))
+  (w (:pointer :int))
+  (h (:pointer :int)))
 
 (defsdl2fun ("SDL_CreateTexture" sdl-create-texture) (:pointer sdl-texture)
   (renderer (:pointer sdl-renderer))
