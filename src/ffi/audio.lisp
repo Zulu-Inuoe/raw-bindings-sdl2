@@ -13,9 +13,9 @@
 (defsdl2type sdl-audio-format :uint16)
 
 (defsdl2constant +sdl-audio-mask-bitsize+  #xFF)
-(defsdl2constant +sdl-audio-mask-datatype+ (logior 1 8))
-(defsdl2constant +sdl-audio-mask-endian+   (logior 1 12))
-(defsdl2constant +sdl-audio-mask-signed+   (logior 1 15))
+(defsdl2constant +sdl-audio-mask-datatype+ (ash 1 8))
+(defsdl2constant +sdl-audio-mask-endian+   (ash 1 12))
+(defsdl2constant +sdl-audio-mask-signed+   (ash 1 15))
 
 (defsdl2-lispfun sdl-audio-bitsize (x)
   (logand x +sdl-audio-mask-bitsize+))
