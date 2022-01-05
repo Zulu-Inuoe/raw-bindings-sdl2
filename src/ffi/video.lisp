@@ -151,7 +151,7 @@
   (display-index :int)
   (rect (:pointer sdl-rect)))
 
-(defsdl2fun ("SDL_GetDisplayDPI" sdl-get-display-gpi) :int
+(defsdl2fun ("SDL_GetDisplayDPI" sdl-get-display-dpi) :int
   (display-index :int)
   (ddpi (:pointer :float))
   (hdpi (:pointer :float))
