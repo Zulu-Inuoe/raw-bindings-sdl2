@@ -18,8 +18,8 @@
    (ash d 24)))
 
 (defsdl2enum sdl-bool
-  (+sdl-true+ 0)
-  (+sdl-false+ 1))
+  (+sdl-false+ 0)
+  (+sdl-true+ 1))
 
 ;;Would like to include other SDL memory functions, but need size_t equivalent
 
