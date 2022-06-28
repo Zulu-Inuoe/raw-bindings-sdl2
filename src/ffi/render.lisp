@@ -100,7 +100,7 @@
   (g :uint8)
   (b :uint8))
 
-(defsdl2fun ("SDL_GetTextureColorMod" sdl-gettexture-color-mod) :int
+(defsdl2fun ("SDL_GetTextureColorMod" sdl-get-texture-color-mod) :int
   (texture (:pointer sdl-texture))
   (r (:pointer :uint8))
   (g (:pointer :uint8))
